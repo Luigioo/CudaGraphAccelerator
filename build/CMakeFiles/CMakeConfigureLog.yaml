@@ -5,7 +5,7 @@ events:
     kind: "message-v1"
     backtrace:
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
-      - "CMakeLists.txt:2 (project)"
+      - "CMakeLists.txt"
     message: |
       The system is: Windows - 10.0.19045 - AMD64
   -
@@ -14,7 +14,7 @@ events:
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
+      - "CMakeLists.txt"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
       Compiler:  
@@ -24,7 +24,7 @@ events:
       The output was:
       0
       MSBuild version 17.6.3+07e294721 for .NET Framework
-      Build started 6/9/2023 2:51:26 PM.
+      Build started 6/9/2023 5:55:19 PM.
       
       Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -51,7 +51,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:00.81
+      Time Elapsed 00:00:00.78
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -67,7 +67,7 @@ events:
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
+      - "CMakeLists.txt"
     message: |
       Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
       Compiler:  
@@ -77,7 +77,7 @@ events:
       The output was:
       0
       MSBuild version 17.6.3+07e294721 for .NET Framework
-      Build started 6/9/2023 2:51:27 PM.
+      Build started 6/9/2023 5:55:20 PM.
       
       Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -104,7 +104,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:00.57
+      Time Elapsed 00:00:00.60
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -119,50 +119,49 @@ events:
     backtrace:
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:2 (project)"
+      - "CMakeLists.txt"
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-cp1mon"
-      binary: "E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-cp1mon"
+      source: "E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-m9clqn"
+      binary: "E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-m9clqn"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
-      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
     buildResult:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-cp1mon
+        Change Dir: E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-m9clqn
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_da32c.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
-        Build started 6/9/2023 2:51:28 PM.
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_d5174.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 6/9/2023 5:55:21 PM.
         
-        Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-cp1mon\\cmTC_da32c.vcxproj" on node 1 (default targets).
+        Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9clqn\\cmTC_d5174.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_da32c.dir\\Debug\\".
-          Creating directory "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-cp1mon\\Debug\\".
-          Creating directory "cmTC_da32c.dir\\Debug\\cmTC_da32c.tlog\\".
+          Creating directory "cmTC_d5174.dir\\Debug\\".
+          Creating directory "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9clqn\\Debug\\".
+          Creating directory "cmTC_d5174.dir\\Debug\\cmTC_d5174.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_da32c.dir\\Debug\\cmTC_da32c.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Creating "cmTC_d5174.dir\\Debug\\cmTC_d5174.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_da32c.dir\\Debug\\\\" /Fd"cmTC_da32c.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d5174.dir\\Debug\\\\" /Fd"cmTC_d5174.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32532 for x64
           CMakeCCompilerABI.c
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_da32c.dir\\Debug\\\\" /Fd"cmTC_da32c.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d5174.dir\\Debug\\\\" /Fd"cmTC_d5174.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-cp1mon\\Debug\\cmTC_da32c.exe" /INCREMENTAL /ILK:"cmTC_da32c.dir\\Debug\\cmTC_da32c.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-cp1mon/Debug/cmTC_da32c.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-cp1mon/Debug/cmTC_da32c.lib" /MACHINE:X64  /machine:x64 cmTC_da32c.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_da32c.vcxproj -> E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-cp1mon\\Debug\\cmTC_da32c.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9clqn\\Debug\\cmTC_d5174.exe" /INCREMENTAL /ILK:"cmTC_d5174.dir\\Debug\\cmTC_d5174.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-m9clqn/Debug/cmTC_d5174.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-m9clqn/Debug/cmTC_d5174.lib" /MACHINE:X64  /machine:x64 cmTC_d5174.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_d5174.vcxproj -> E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9clqn\\Debug\\cmTC_d5174.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_da32c.dir\\Debug\\cmTC_da32c.tlog\\unsuccessfulbuild".
-          Touching "cmTC_da32c.dir\\Debug\\cmTC_da32c.tlog\\cmTC_da32c.lastbuildstate".
-        Done Building Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-cp1mon\\cmTC_da32c.vcxproj" (default targets).
+          Deleting file "cmTC_d5174.dir\\Debug\\cmTC_d5174.tlog\\unsuccessfulbuild".
+          Touching "cmTC_d5174.dir\\Debug\\cmTC_d5174.tlog\\cmTC_d5174.lastbuildstate".
+        Done Building Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m9clqn\\cmTC_d5174.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.56
+        Time Elapsed 00:00:00.58
         
       exitCode: 0
   -
@@ -170,115 +169,49 @@ events:
     backtrace:
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
       - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:2 (project)"
+      - "CMakeLists.txt"
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-iehk0t"
-      binary: "E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-iehk0t"
+      source: "E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-ky8db7"
+      binary: "E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-ky8db7"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
-      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
     buildResult:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-iehk0t
+        Change Dir: E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-ky8db7
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_1cb68.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
-        Build started 6/9/2023 2:51:30 PM.
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_62608.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
+        Build started 6/9/2023 5:55:23 PM.
         
-        Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-iehk0t\\cmTC_1cb68.vcxproj" on node 1 (default targets).
+        Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ky8db7\\cmTC_62608.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_1cb68.dir\\Debug\\".
-          Creating directory "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-iehk0t\\Debug\\".
-          Creating directory "cmTC_1cb68.dir\\Debug\\cmTC_1cb68.tlog\\".
+          Creating directory "cmTC_62608.dir\\Debug\\".
+          Creating directory "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ky8db7\\Debug\\".
+          Creating directory "cmTC_62608.dir\\Debug\\cmTC_62608.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_1cb68.dir\\Debug\\cmTC_1cb68.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Creating "cmTC_62608.dir\\Debug\\cmTC_62608.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_1cb68.dir\\Debug\\\\" /Fd"cmTC_1cb68.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_62608.dir\\Debug\\\\" /Fd"cmTC_62608.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32532 for x64
           CMakeCXXCompilerABI.cpp
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_1cb68.dir\\Debug\\\\" /Fd"cmTC_1cb68.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_62608.dir\\Debug\\\\" /Fd"cmTC_62608.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-iehk0t\\Debug\\cmTC_1cb68.exe" /INCREMENTAL /ILK:"cmTC_1cb68.dir\\Debug\\cmTC_1cb68.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-iehk0t/Debug/cmTC_1cb68.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-iehk0t/Debug/cmTC_1cb68.lib" /MACHINE:X64  /machine:x64 cmTC_1cb68.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_1cb68.vcxproj -> E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-iehk0t\\Debug\\cmTC_1cb68.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ky8db7\\Debug\\cmTC_62608.exe" /INCREMENTAL /ILK:"cmTC_62608.dir\\Debug\\cmTC_62608.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-ky8db7/Debug/cmTC_62608.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-ky8db7/Debug/cmTC_62608.lib" /MACHINE:X64  /machine:x64 cmTC_62608.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_62608.vcxproj -> E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ky8db7\\Debug\\cmTC_62608.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_1cb68.dir\\Debug\\cmTC_1cb68.tlog\\unsuccessfulbuild".
-          Touching "cmTC_1cb68.dir\\Debug\\cmTC_1cb68.tlog\\cmTC_1cb68.lastbuildstate".
-        Done Building Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-iehk0t\\cmTC_1cb68.vcxproj" (default targets).
+          Deleting file "cmTC_62608.dir\\Debug\\cmTC_62608.tlog\\unsuccessfulbuild".
+          Touching "cmTC_62608.dir\\Debug\\cmTC_62608.tlog\\cmTC_62608.lastbuildstate".
+        Done Building Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ky8db7\\cmTC_62608.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.56
-        
-      exitCode: 0
-  -
-    kind: "try_compile-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
-      - "C:/Program Files/CMake/share/cmake-3.26/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
-      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckCXXCompilerFlag.cmake:40 (cmake_check_compiler_flag)"
-      - "pybind11/tools/pybind11Common.cmake:268 (check_cxx_compiler_flag)"
-      - "pybind11/tools/pybind11Common.cmake:332 (_pybind11_return_if_cxx_and_linker_flags_work)"
-      - "pybind11/tools/pybind11Common.cmake:377 (_pybind11_generate_lto)"
-      - "pybind11/CMakeLists.txt:210 (include)"
-    checks:
-      - "Performing Test HAS_MSVC_GL_LTCG"
-    directories:
-      source: "E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-s5djll"
-      binary: "E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-s5djll"
-    cmakeVariables:
-      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
-      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
-      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
-      CMAKE_MODULE_PATH: ""
-    buildResult:
-      variable: "HAS_MSVC_GL_LTCG"
-      cached: true
-      stdout: |
-        Change Dir: E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-s5djll
-        
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_db219.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.6.3+07e294721 for .NET Framework
-        Build started 6/9/2023 2:51:31 PM.
-        
-        Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s5djll\\cmTC_db219.vcxproj" on node 1 (default targets).
-        PrepareForBuild:
-          Creating directory "cmTC_db219.dir\\Debug\\".
-          Creating directory "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s5djll\\Debug\\".
-          Creating directory "cmTC_db219.dir\\Debug\\cmTC_db219.tlog\\".
-        InitializeBuildStatus:
-          Creating "cmTC_db219.dir\\Debug\\cmTC_db219.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-        ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /GL /D _MBCS /D WIN32 /D _WINDOWS /D HAS_MSVC_GL_LTCG /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_db219.dir\\Debug\\\\" /Fd"cmTC_db219.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s5djll\\src.cxx"
-          Microsoft (R) C/C++ Optimizing Compiler Version 19.36.32532 for x64
-          Copyright (C) Microsoft Corporation.  All rights reserved.
-          src.cxx
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /GL /D _MBCS /D WIN32 /D _WINDOWS /D HAS_MSVC_GL_LTCG /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_db219.dir\\Debug\\\\" /Fd"cmTC_db219.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s5djll\\src.cxx"
-        Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s5djll\\Debug\\cmTC_db219.exe" /INCREMENTAL /ILK:"cmTC_db219.dir\\Debug\\cmTC_db219.ilk" /NOLOGO "-LTCG" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-s5djll/Debug/cmTC_db219.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/Ecode/GPU/VS/Code/CudaGraphAccelerator/CudaGraphAccelerator/build/CMakeFiles/CMakeScratch/TryCompile-s5djll/Debug/cmTC_db219.lib" /MACHINE:X64  /machine:x64 cmTC_db219.dir\\Debug\\src.obj
-        LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification [E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s5djll\\cmTC_db219.vcxproj]
-          Generating code
-          Finished generating code
-          cmTC_db219.vcxproj -> E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s5djll\\Debug\\cmTC_db219.exe
-        FinalizeBuildStatus:
-          Deleting file "cmTC_db219.dir\\Debug\\cmTC_db219.tlog\\unsuccessfulbuild".
-          Touching "cmTC_db219.dir\\Debug\\cmTC_db219.tlog\\cmTC_db219.lastbuildstate".
-        Done Building Project "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s5djll\\cmTC_db219.vcxproj" (default targets).
-        
-        Build succeeded.
-        
-        "E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s5djll\\cmTC_db219.vcxproj" (default target) (1) ->
-        (Link target) -> 
-          LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification [E:\\Ecode\\GPU\\VS\\Code\\CudaGraphAccelerator\\CudaGraphAccelerator\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s5djll\\cmTC_db219.vcxproj]
-        
-            1 Warning(s)
-            0 Error(s)
-        
-        Time Elapsed 00:00:00.56
+        Time Elapsed 00:00:00.58
         
       exitCode: 0
 ...

@@ -7,6 +7,7 @@
 #include <cmath>
 #include <random>
 
+
 namespace py = pybind11;
 
 float foo(float a, float b){
@@ -102,23 +103,12 @@ std::unordered_map<int, std::vector<double>> fruchterman_reingold_layout(Graph& 
     return pos;
 }
 
-std::vector<int> typetest(const std::vector<int>& input) {
-    std::vector<int> output;
-    output.reserve(input.size());
-
-    for (int element : input) {
-        output.push_back(element + 1);
-    }
-
-    return output;
-}
 
 
 PYBIND11_MODULE(algo, handle){
     handle.doc() = "This is the module docs....";
     handle.def("fruchterman_reingold_layout", &fruchterman_reingold_layout);
     handle.def("foo", &foo);
-    // handle.def("typetest", &)
 }
 
 // int main(int argc, char const *argv[])
