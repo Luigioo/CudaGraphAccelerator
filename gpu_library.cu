@@ -8,9 +8,8 @@
 #include <cmath>
 #include <random>
 #include <sstream>
-#include <iostream>
 #include <cuda_runtime.h>
-#include <cuda_runtime.h>
+#include "gpu_library.h"
 
 using Graph = std::unordered_map<int, std::vector<int>>;
 
@@ -95,10 +94,6 @@ std::unordered_map<int, std::vector<double>> fruchterman_reingold_layout(Graph& 
     return pos;
 }
 
-#include <iostream>
-#include <random>
-#include <vector>
-#include <unordered_map>
 
 // CUDA kernel for calculating repulsive forces
 __global__ void calculateRepulsiveForces(const double* positions,
@@ -307,8 +302,13 @@ void processWrapper(pybind11::array_t<int> array, int numNodes) {
     fruchterman_reingold_layout_cuda(ptr, size, numNodes);
 }
 
-PYBIND11_MODULE(gpu_library, m)
+void foo(){
+	printf("asdf");
+}
+
+PYBIND11_MODULE(algo, m)
 {
   m.def("fr", &fruchterman_reingold_layout);
   m.def("fr_cuda", &processWrapper);
+  m.def("foo", &foo);
 }
