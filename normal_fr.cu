@@ -32,8 +32,8 @@ namespace normal_fr{
                 repulsiveForceY += repulsiveForce * (deltaY / distance);
             }
 
-            repulsiveForces[i * 2] += repulsiveForceX;
-            repulsiveForces[i * 2 + 1] += repulsiveForceY;
+            repulsiveForces[i * 2] = repulsiveForceX;
+            repulsiveForces[i * 2 + 1] = repulsiveForceY;
         }
     }
 
@@ -51,13 +51,13 @@ namespace normal_fr{
             double distance = std::max(0.01, std::sqrt(deltaX * deltaX + deltaY * deltaY));
             double attractiveForce = distance * distance / k;
 
-            attractiveForceX -= attractiveForce * (deltaX / distance);
-            attractiveForceY -= attractiveForce * (deltaY / distance);
+            attractiveForceX = attractiveForce * (deltaX / distance);
+            attractiveForceY = attractiveForce * (deltaY / distance);
 
-            attractiveForces[node1 * 2] += -attractiveForce * (deltaX / distance);
-            attractiveForces[node1 * 2 + 1] += -attractiveForce * (deltaY / distance);
-            attractiveForces[node2 * 2] += attractiveForce * (deltaX / distance);
-            attractiveForces[node2 * 2 + 1] += attractiveForce * (deltaY / distance);
+            attractiveForces[node1 * 2] -= attractiveForceX;
+            attractiveForces[node1 * 2 + 1] -= attractiveForceY;
+            attractiveForces[node2 * 2] += attractiveForceX;
+            attractiveForces[node2 * 2 + 1] += attractiveForceY;
         }
     }
 
@@ -100,8 +100,8 @@ namespace normal_fr{
             pos[i * 2 + 1] = dis(gen);
         }
 
-        double* repulsiveForces = new double[numNodes * 2];
-        double* attractiveForces = new double[numNodes * 2];
+        double* repulsiveForces = new double[numNodes * 2]();
+        double* attractiveForces = new double[numNodes * 2]();
 
         for (int iter = 0; iter < iterations; ++iter) {
             // Compute repulsive forces
@@ -112,11 +112,30 @@ namespace normal_fr{
 
             applyForces(pos, attractiveForces, repulsiveForces, numNodes, temp);
 
+
+            //Accumulate sum of absolute forces
+            // double sumRepulsiveForces = 0.0;
+            // double sumAttractiveForces = 0.0;
+            // for (int i = 0; i < numNodes * 2; ++i) {
+            //     sumRepulsiveForces += std::abs(repulsiveForces[i]);
+            //     sumAttractiveForces += std::abs(attractiveForces[i]);
+            // }
+            // std::cout << "Sum of Repulsive Forces: " << sumRepulsiveForces << std::endl;
+            // std::cout << "Sum of Attractive Forces   : " << sumAttractiveForces << std::endl;
+            
+            // if(iter==0){
+            //  for (int i = 0; i < 10; i++) {
+            //     std::cout << attractiveForces[i] << " ";
+            //  }    
+            // }
+
             // Reset attractive and repulsive forces
             std::fill(repulsiveForces, repulsiveForces + (numNodes * 2), 0.0);
             std::fill(attractiveForces, attractiveForces + (numNodes * 2), 0.0);
 
             temp *= cooling_factor;
+
+
         }
 
         delete[] repulsiveForces;
