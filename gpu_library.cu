@@ -9,18 +9,20 @@
 #include <random>
 #include <sstream>
 #include <cuda_runtime.h>
-#include "gpu_library.h"
+#include "normal_fr.cu"
+
+namespace py = pybind11;
 
 using Graph = std::unordered_map<int, std::vector<int>>;
 
-std::unordered_map<int, std::vector<double>> fruchterman_reingold_layout(Graph& G, int iterations = 50, double k = 0.0, double temp = 1.0, double cooling_factor = 0.95, int seed = 0) {
+std::unordered_map<int, std::vector<double>> fruchterman_reingold_layout(Graph& G, int iterations = 50, double k = 0.0, double temp = 1.0, double cooling_factor = 0.95, int seed = 42) {
     std::random_device rd;
     std::mt19937 gen(seed != 0 ? seed : rd());
     std::uniform_real_distribution<> dis(0.0, 1.0);
 
     if (k == 0.0) {
         // Compute default spring constant
-        int n = G.size();
+        size_t n = G.size();
         double A = 1.0;
         k = std::sqrt(A / n);
     }
@@ -88,11 +90,12 @@ std::unordered_map<int, std::vector<double>> fruchterman_reingold_layout(Graph& 
         // Reduce temperature
         temp *= cooling_factor;
 
-        std::cout << "Iteration " << i << std::endl;
+        // std::cout << "Iteration " << i << std::endl;
     }
 
     return pos;
 }
+
 
 
 // CUDA kernel for calculating repulsive forces
@@ -118,8 +121,8 @@ __global__ void calculateRepulsiveForces(const double* positions,
             repulsiveForceY += repulsiveForce * (deltaY / distance);
         }
 
-        repulsiveForces[i * 2] = repulsiveForceX;
-        repulsiveForces[i * 2 + 1] = repulsiveForceY;
+        repulsiveForces[i * 2] += repulsiveForceX;
+        repulsiveForces[i * 2 + 1] += repulsiveForceY;
     }
 }
 
@@ -129,24 +132,27 @@ __global__ void calculateAttractiveForces(int* edges, int numEdges, const double
                                           const int numNodes) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
 
-	int node1 = edges[i*2];
-	int node2 = edges[i*2+1];
+    if(i<numEdges){
+        int node1 = edges[i*2];
+        int node2 = edges[i*2+1];
 
-	double attractiveForceX = 0.0;
-	double attractiveForceY = 0.0;
+        double attractiveForceX = 0.0;
+        double attractiveForceY = 0.0;
 
-	double deltaX = positions[node1 * 2] - positions[node2 * 2];
-	double deltaY = positions[node1 * 2 + 1] - positions[node2 * 2 + 1];
-	double distance = max(0.01, sqrt(deltaX * deltaX + deltaY * deltaY));
-	double attractiveForce = distance * distance / k;
+        double deltaX = positions[node1 * 2] - positions[node2 * 2];
+        double deltaY = positions[node1 * 2 + 1] - positions[node2 * 2 + 1];
+        double distance = max(0.01, sqrt(deltaX * deltaX + deltaY * deltaY));
+        double attractiveForce = distance * distance / k;
 
-	attractiveForceX -= attractiveForce * (deltaX / distance);
-	attractiveForceY -= attractiveForce * (deltaY / distance);
+        attractiveForceX = attractiveForce * (deltaX / distance);
+        attractiveForceY = attractiveForce * (deltaY / distance);
 
-	attractiveForces[node1 * 2] += -attractiveForce * (deltaX / distance);
-	attractiveForces[node1 * 2 + 1] += -attractiveForce * (deltaY / distance);
-	attractiveForces[node2 * 2] += attractiveForce * (deltaX / distance);
-	attractiveForces[node2 * 2 + 1] += attractiveForce * (deltaY / distance);
+        attractiveForces[node1 * 2] -= attractiveForceX;
+        attractiveForces[node1 * 2 + 1] -= attractiveForceY;
+        attractiveForces[node2 * 2] += attractiveForceX;
+        attractiveForces[node2 * 2 + 1] += attractiveForceY;
+
+    }
 
 }
 
@@ -170,12 +176,19 @@ __global__ void applyForces(double* positions,
 		// Ensure node stays within bounding box
 		positions[i*2] = max(0.01, min(positions[i*2], 1.0));
 		positions[i*2+1] = max(0.01, min(positions[i*2+1], 1.0));
+
     }
 }
 
+//Takes in edges data in the form:
+// [v1, v2, v1, v3...v45, v48]
+// where v1 is connected to v2, v1 is conneted to v3, and v45 is connected to v48
+// Returns a double array of calculated positions of the vetices
+// [x1, y1, x2, y2, .... , xn, yn]
+// where x1 is the x position for vertex 1
 double* fruchterman_reingold_layout_cuda(
     int* edges, int numEdges, int numNodes, int iterations = 50,
-    double k = 0.0, double temp = 1.0, double cooling_factor = 0.95, int seed = 0) {
+    double k = 0.0, double temp = 1.0, double cooling_factor = 0.95, int seed = 42) {
 
     std::random_device rd;
     std::mt19937 gen(seed != 0 ? seed : rd());
@@ -187,8 +200,8 @@ double* fruchterman_reingold_layout_cuda(
         k = sqrt(A / numNodes);
     }
 
-    // Initialize positions randomly
-    double *pos = new double[numNodes*2];
+    // Allocate host memory and Initialize positions randomly
+    double* pos = new double[numNodes*2];
     for (int i=0;i<numNodes;i++) {
         pos[i*2] = dis(gen);
         pos[i*2+1] = dis(gen);
@@ -196,47 +209,21 @@ double* fruchterman_reingold_layout_cuda(
     }
 
     // Allocate device memory
-
 	int* d_edges;
     cudaMalloc((void**)&d_edges, numEdges * 2 * sizeof(int));
-    cudaMemcpy(d_edges, edges, numEdges * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_edges, edges, numEdges * 2 * sizeof(int), cudaMemcpyHostToDevice);
 
     double* d_positions;
     cudaMalloc((void**)&d_positions, numNodes * 2 * sizeof(double));
-    cudaMemcpy(d_positions, pos, numNodes * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_positions, pos, numNodes * 2 * sizeof(double), cudaMemcpyHostToDevice);
 
     double* d_repulsiveForces;
     cudaMalloc((void**)&d_repulsiveForces, numNodes * 2 * sizeof(double));
+    cudaMemset(d_repulsiveForces, 0, numNodes *2 * sizeof(double));
 
     double* d_attractiveForces;
     cudaMalloc((void**)&d_attractiveForces, numNodes * 2 * sizeof(double));
-
-    // Copy data from host to device
-	// // Get the size of the unordered map
-    // size_t mapSize = G.size();
-
-    // // Convert sizes to device array
-    // int* deviceSizes;
-    // cudaMalloc(&deviceSizes, mapSize * sizeof(int));
-    // cudaMemcpy(deviceSizes, G.keys(), mapSize * sizeof(int), cudaMemcpyHostToDevice);
-
-    // // Convert vectors to device array of pointers
-    // int** deviceVectors;
-    // cudaMalloc(&deviceVectors, mapSize * sizeof(int*));
-    // std::vector<int*> hostVectors;
-    // for (const auto& pair : G)
-    // {
-    //     std::vector<int>& vec = pair.second;
-    //     int* deviceVector;
-    //     cudaMalloc(&deviceVector, vec.size() * sizeof(int));
-    //     cudaMemcpy(deviceVector, vec.data(), vec.size() * sizeof(int), cudaMemcpyHostToDevice);
-    //     hostVectors.push_back(deviceVector);
-    // }
-    // cudaMemcpy(deviceVectors, hostVectors.data(), mapSize * sizeof(int*), cudaMemcpyHostToDevice);
-
-    // cudaMemcpy(d_nodes, &G[0], numNodes * sizeof(int), cudaMemcpyHostToDevice);
-
-    // cudaMemcpy(d_positions, initialPositions, numNodes * 2 * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemset(d_attractiveForces, 0, numNodes * 2 * sizeof(double));
 
     // CUDA grid and block dimensions
     int blockSize = 256;
@@ -251,31 +238,11 @@ double* fruchterman_reingold_layout_cuda(
 
 		applyForces<<<gridSize, blockSize>>>(d_positions, d_attractiveForces, d_repulsiveForces, numNodes, temp);
 
+        //reset attractive and repulsive forces
+        cudaMemset(d_attractiveForces, 0, numNodes * 2 * sizeof(double));
+        cudaMemset(d_repulsiveForces, 0, numNodes * 2 * sizeof(double));
+        
         temp *= cooling_factor;
-
-        // // Copy forces from device to host
-        // double* repulsiveForces = new double[numNodes * 2];
-        // cudaMemcpy(repulsiveForces, d_repulsiveForces, numNodes * 2 * sizeof(double), cudaMemcpyDeviceToHost);
-
-        // double* attractiveForces = new double[numNodes * 2];
-        // cudaMemcpy(attractiveForces, d_attractiveForces, numNodes * 2 * sizeof(double), cudaMemcpyDeviceToHost);
-
-        // // Compute new positions based on forces
-        // for (int i = 0; i < numNodes; ++i) {
-        //     double netForceX = attractiveForces[i * 2] + repulsiveForces[i * 2];
-        //     double netForceY = attractiveForces[i * 2 + 1] + repulsiveForces[i * 2 + 1];
-
-        //     double distance = max(0.01, sqrt(netForceX * netForceX + netForceY * netForceY));
-        //     double displacementX = min(distance, temp) * netForceX / distance;
-        //     double displacementY = min(distance, temp) * netForceY / distance;
-
-        //     pos[i][0] += displacementX;
-        //     pos[i][1] += displacementY;
-
-        //     // Ensure node stays within bounding box
-        //     pos[i][0] = max(0.01, min(pos[i][0], 1.0));
-        //     pos[i][1] = max(0.01, min(pos[i][1], 1.0));
-        // }
 
 
         // delete[] repulsiveForces;
@@ -283,23 +250,33 @@ double* fruchterman_reingold_layout_cuda(
         // Reduce temperature
     }
 
-    cudaMemcpy(pos, d_positions, numNodes * sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(pos, d_positions, numNodes * 2 * sizeof(double), cudaMemcpyDeviceToHost);
 
     // Free device memory
     cudaFree(d_positions);
     cudaFree(d_repulsiveForces);
     cudaFree(d_attractiveForces);
 
-
-
     return pos;
 }
 
-void processWrapper(pybind11::array_t<int> array, int numNodes) {
-    pybind11::buffer_info info = array.request();
+
+
+
+py::array_t<double> processWrapper(py::array_t<int> array, int numNodes) {
+    py::buffer_info info = array.request(); // get a pointer to the array buffer
     int* ptr = static_cast<int*>(info.ptr);
-    int size = info.size;
-    fruchterman_reingold_layout_cuda(ptr, size, numNodes);
+    int numEdges = info.size/2; 
+    double* positions = fruchterman_reingold_layout_cuda(ptr, numEdges, numNodes);
+
+    py::array_t<double> result({numNodes*2}, {sizeof(double)});
+    
+    // Get a pointer to the underlying data buffer of the NumPy array
+    double* result_ptr = static_cast<double*>(result.request().ptr);
+
+    // Copy the elements from the existing array to the NumPy array
+    std::copy(positions, positions + numNodes*2, result_ptr);
+    return result;
 }
 
 void foo(){
