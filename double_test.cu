@@ -11,10 +11,12 @@
 #include <random>
 #include <sstream>
 #include <iomanip>
+#include <string>
+
 using namespace std;
 
 
-__global__ void c_add(double deltaX, double deltaY, double k) {
+__global__ void c_add(double* devicePtr, double deltaX, double deltaY, double k) {
 
     int i = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -23,10 +25,12 @@ __global__ void c_add(double deltaX, double deltaY, double k) {
 
     double repulsiveForceX = repulsiveForce * (deltaX / distance);
     double repulsiveForceY = repulsiveForce * (deltaY / distance);
-
     // Print intermediate values
-    printf("k = %.16f, deltaX = %.16f, deltaY = %.16f, distance = %.16f, rf = %.16f, rx=%.16f, ry = %.16f\n", k, deltaX, deltaY, distance, repulsiveForce, repulsiveForceX, repulsiveForceY);
+    // log("k = %.16f, deltaX = %.16f, deltaY = %.16f, distance = %.16f, rf = %.16f, rx=%.16f, ry = %.16f\n", k, deltaX, deltaY, distance, repulsiveForce, repulsiveForceX, repulsiveForceY);
+    // log("asdf");
+    *devicePtr = (deltaX * deltaX + deltaY * deltaY);
 }
+
 
 void add(double deltaX, double deltaY, double k) {
 
@@ -37,11 +41,11 @@ void add(double deltaX, double deltaY, double k) {
     double repulsiveForceY = repulsiveForce * (deltaY / distance);
 
     // Print intermediate values
-    printf("k=%.16f, deltaX = %.16f, deltaY = %.16f, distance = %.16f, rf = %.16f, rx=%.16f, ry = %.16f\n", k, deltaX, deltaY, distance, repulsiveForce, repulsiveForceX, repulsiveForceY);
+    printf("tosqrt=%.16f, deltaX = %.16f, deltaY = %.16f, distance = %.16f, rf = %.16f, rx=%.16f, ry = %.16f\n", (deltaX * deltaX + deltaY * deltaY), deltaX, deltaY, distance, repulsiveForce, repulsiveForceX, repulsiveForceY);
 }
 
 void run_test() {
-    
+    printf("ddd");
 
     double deltaX = -0.5279227649178649;
     double deltaY = -0.1327964198334066;
@@ -49,8 +53,18 @@ void run_test() {
     double A = 1.0;
     double k = sqrt(A / 50);
 
+    double myVariable;
 
-    c_add <<<1, 1>>> (deltaX, deltaY, k);
+    double* devicePtr;
+    cudaMalloc(&devicePtr, sizeof(double));
+
+    c_add <<<1, 1>>> (devicePtr, deltaX, deltaY, k);
+
+    cudaMemcpy(&myVariable, devicePtr, sizeof(double), cudaMemcpyDeviceToHost);
+    // cudaMemcpy(devicePtr, &myVariable, sizeof(double), cudaMemcpyHostToDevice);
+
+    printf("%.16f", myVariable);
+    printf("\n");
 
     add(deltaX, deltaY, k);
 

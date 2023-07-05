@@ -63,14 +63,12 @@ py::array_t<double> processWrapperCuda(py::array_t<int> array, int numNodes, int
     return result;
 }
 
-void wrapDoubleTest(){
-  run_test();
-}
+
 
 
 PYBIND11_MODULE(algo, m)
 {
   m.def("fr", &processWrapper);
   m.def("fr_cuda", &processWrapperCuda);
-  m.def("double_test", &wrapDoubleTest);
+  m.def("double_test", &run_test);
 }
