@@ -1,41 +1,48 @@
-// #include <pybind11/pybind11.h>
-// #include <pybind11/numpy.h>
-// #include <pybind11/stl.h>
-// #include <pybind11/stl_bind.h>
+//system
 #include <iostream>
 #include <vector>
 #include <unordered_map>
 #include <cmath>
 #include <random>
 #include <sstream>
+#include <iomanip>
+//cuda
 #include <cuda_runtime.h>
 
 namespace normal_fr{
 
 
     
-    void calculateRepulsiveForces(const double* positions, double* repulsiveForces, const double k, const int numNodes) {
-        for (int i = 0; i < numNodes; ++i) {
-            double repulsiveForceX = 0.0;
-            double repulsiveForceY = 0.0;
+void calculateRepulsiveForces(const double* positions, double* repulsiveForces, const double k, const int numNodes) {
+    for (int i = 0; i < numNodes; ++i) {
+        double repulsiveForceX = 0.0;
+        double repulsiveForceY = 0.0;
 
-            for (int j = 0; j < numNodes; ++j) {
-                if (i == j)
-                    continue;
+        for (int j = 0; j < numNodes; ++j) {
+            if (i == j)
+                continue;
 
-                double deltaX = positions[i * 2] - positions[j * 2];
-                double deltaY = positions[i * 2 + 1] - positions[j * 2 + 1];
-                double distance = std::max(0.01, std::sqrt(deltaX * deltaX + deltaY * deltaY));
-                double repulsiveForce = k * k / distance;
+            double deltaX = positions[i * 2] - positions[j * 2];
+            double deltaY = positions[i * 2 + 1] - positions[j * 2 + 1];
+            double distance = std::max(0.01, std::sqrt(deltaX * deltaX + deltaY * deltaY));
+            double repulsiveForce = k * k / distance;
 
-                repulsiveForceX += repulsiveForce * (deltaX / distance);
-                repulsiveForceY += repulsiveForce * (deltaY / distance);
-            }
+            repulsiveForceX += repulsiveForce * (deltaX / distance);
+            repulsiveForceY += repulsiveForce * (deltaY / distance);
 
-            repulsiveForces[i * 2] = repulsiveForceX;
-            repulsiveForces[i * 2 + 1] = repulsiveForceY;
+            // Print intermediate values
+            if(i==2)
+                printf("i = %d, j = %d, deltaX = %.16f, deltaY = %.16f, distance = %.16f, rf = %.16f, rx=%.16f, ry = %.16f\n", i, j, deltaX, deltaY, distance, repulsiveForce, repulsiveForceX, repulsiveForceY);
         }
+
+        repulsiveForces[i * 2] = repulsiveForceX;
+        repulsiveForces[i * 2 + 1] = repulsiveForceY;
+
+        // Print final repulsive forces
+        if(i==2)
+            printf("i = %d, repulsiveForceX = %.16lf, repulsiveForceY = %.16lf\n", i, repulsiveForceX, repulsiveForceY);
     }
+}
 
     void calculateAttractiveForces(int* edges, int numEdges, const double* positions, double* attractiveForces,
                                 const double k, const int numNodes) {
@@ -114,20 +121,22 @@ namespace normal_fr{
 
 
             //Accumulate sum of absolute forces
-            // double sumRepulsiveForces = 0.0;
-            // double sumAttractiveForces = 0.0;
-            // for (int i = 0; i < numNodes * 2; ++i) {
-            //     sumRepulsiveForces += std::abs(repulsiveForces[i]);
-            //     sumAttractiveForces += std::abs(attractiveForces[i]);
-            // }
-            // std::cout << "Sum of Repulsive Forces: " << sumRepulsiveForces << std::endl;
-            // std::cout << "Sum of Attractive Forces   : " << sumAttractiveForces << std::endl;
+            double sumRepulsiveForces = 0.0;
+            double sumAttractiveForces = 0.0;
+            for (int i = 0; i < numNodes * 2; ++i) {
+                sumRepulsiveForces += std::abs(repulsiveForces[i]);
+                sumAttractiveForces += std::abs(attractiveForces[i]);
+            }
+            std::cout << std::setprecision(std::numeric_limits<double>::digits10 + 1); // Set precision to maximum
+            printf("repo2x: %.16lf", repulsiveForces[4]);
+            std::cout << "Sum of Repulsive Forces: " << sumRepulsiveForces << std::endl;
+            std::cout << "Sum of Attractive Forces   : " << sumAttractiveForces << std::endl;
             
-            // if(iter==0){
-            //  for (int i = 0; i < 10; i++) {
-            //     std::cout << attractiveForces[i] << " ";
-            //  }    
-            // }
+            if(iter==0){
+             for (int i = 0; i < 10; i++) {
+                std::cout << repulsiveForces[i] << " ";
+             }    
+            }
 
             // Reset attractive and repulsive forces
             std::fill(repulsiveForces, repulsiveForces + (numNodes * 2), 0.0);

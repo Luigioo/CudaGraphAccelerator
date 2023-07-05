@@ -1,9 +1,11 @@
 import build.Debug.algo as algo
-
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 import time
+
+# Macro to enable or disable calculating and printing crossing edges
+ENABLE_CROSSING_EDGES = False
 
 def group_elements(arr):
     result = {}
@@ -47,34 +49,36 @@ def do_edges_cross(p1, p2, p3, p4):
 
 # Example usage
 # G = nx.karate_club_graph()
-numNodes = 5000
+numNodes = 50
 
 G = nx.gnp_random_graph(numNodes, 0.05, 42)
 
 G_dict = {node: list(G.neighbors(node)) for node in G.nodes()}
 
-# convert the 2d array G.edges, which has a stucture:
+# convert the 2d array G.edges, which has a structure:
 # [[v1, v2],[v1,v3],[v4,v5],...[v45, v48]]
 # to: [v1, v2, v1, v3...v45, v48]
 edge_edge_array = np.array(list(G.edges)).flatten()
 
 start_time_cuda = time.time()
-result = algo.fr_cuda(edge_edge_array, numNodes)
+result = algo.fr_cuda(edge_edge_array, numNodes, 1)  # execute cuda program
 end_time_cuda = time.time()
 cuda_time = end_time_cuda - start_time_cuda
 cuda_pos = group_elements(result)
 
-# print("edge crossings: "+str(calculate_edge_crossings(G, cuda_pos)))
 
 edge_edge_array = np.array(list(G.edges)).flatten()
 start_time_fr = time.time()
-normal_pos = algo.fr(edge_edge_array, numNodes)
+normal_pos = algo.fr(edge_edge_array, numNodes, 1)  # execute cpu program
 end_time_fr = time.time()
 fr_time = end_time_fr - start_time_fr
 normal_pos = group_elements(normal_pos)
 
-# print("edge crossings: "+str(calculate_edge_crossings(G, normal_pos)))
+if ENABLE_CROSSING_EDGES:
+    print("edge crossings (fr_cuda): " + str(calculate_edge_crossings(G, cuda_pos)))
 
+if ENABLE_CROSSING_EDGES:
+    print("edge crossings (fr): " + str(calculate_edge_crossings(G, normal_pos)))
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
 
