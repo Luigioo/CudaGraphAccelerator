@@ -1,3 +1,4 @@
+from math import sqrt
 import build.Debug.algo as algo
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -47,46 +48,95 @@ def do_edges_cross(p1, p2, p3, p4):
         ((x3 - x4) * (y1 - y3) - (y3 - y4) * (x1 - x3)) * ((x3 - x4) * (y2 - y3) - (y3 - y4) * (x2 - x3)) < 0
     )
 
-# Example usage
-# G = nx.karate_club_graph()
-numNodes = 50
+def create_and_test_graph(graph_generator, name):
+    G = graph_generator()
+    G_dict = {node: list(G.neighbors(node)) for node in G.nodes()}
 
-G = nx.gnp_random_graph(numNodes, 0.05, 42)
+    edge_edge_array = np.array(list(G.edges)).flatten()
+    start_time_cuda = time.time()
+    result = algo.fr_cuda(edge_edge_array, len(G.nodes()), 50)
+    end_time_cuda = time.time()
+    cuda_time = end_time_cuda - start_time_cuda
+    cuda_pos = group_elements(result)
 
-G_dict = {node: list(G.neighbors(node)) for node in G.nodes()}
+    edge_edge_array = np.array(list(G.edges)).flatten()
+    start_time_fr = time.time()
+    # normal_pos = algo.fr(edge_edge_array, len(G.nodes()), 50)
+    normal_pos = nx.fruchterman_reingold_layout(G)
+    end_time_fr = time.time()
+    fr_time = end_time_fr - start_time_fr
+    # normal_pos = group_elements(normal_pos)
 
-# convert the 2d array G.edges, which has a structure:
-# [[v1, v2],[v1,v3],[v4,v5],...[v45, v48]]
-# to: [v1, v2, v1, v3...v45, v48]
-edge_edge_array = np.array(list(G.edges)).flatten()
+    if ENABLE_CROSSING_EDGES:
+        print("edge crossings (fr_cuda) for " + name + ": " + str(calculate_edge_crossings(G, cuda_pos)))
 
-start_time_cuda = time.time()
-result = algo.fr_cuda(edge_edge_array, numNodes, 1)  # execute cuda program
-end_time_cuda = time.time()
-cuda_time = end_time_cuda - start_time_cuda
-cuda_pos = group_elements(result)
+    if ENABLE_CROSSING_EDGES:
+        print("edge crossings (fr) for " + name + ": " + str(calculate_edge_crossings(G, normal_pos)))
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
+
+    ax1.set_title(name + ' (fr_cuda)\nTime: {:.6f} seconds'.format(cuda_time))
+    nx.draw(G, pos=cuda_pos, ax=ax1)
+
+    ax2.set_title(name + ' (fr)\nTime: {:.6f} seconds'.format(fr_time))
+    nx.draw(G, pos=normal_pos, ax=ax2)
+
+    plt.tight_layout()
+    plt.savefig(name + ".png")
+    plt.close()
+
+# Testing various types of graphs
+numNodes = 500
+create_and_test_graph(lambda: nx.gnp_random_graph(numNodes, 0.05, 42), "random")
+# create_and_test_graph(lambda: nx.grid_2d_graph(int(sqrt(numNodes)), int(sqrt(numNodes))), "grid")
+create_and_test_graph(lambda: nx.scale_free_graph(numNodes, seed=42), "scale_free")
+create_and_test_graph(lambda: nx.watts_strogatz_graph(numNodes, 5, 0.1, seed=42), "small_world")
+
+# G = nx.grid_2d_graph(12, 32)
+# pos = nx.spring_layout(G)
+# nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray')
+# plt.show()
+
+# # Example usage
+# # G = nx.karate_club_graph()
+# numNodes = 50
+
+# G = nx.gnp_random_graph(numNodes, 0.05, 42)
+
+# G_dict = {node: list(G.neighbors(node)) for node in G.nodes()}
+
+# # convert the 2d array G.edges, which has a structure:
+# # [[v1, v2],[v1,v3],[v4,v5],...[v45, v48]]
+# # to: [v1, v2, v1, v3...v45, v48]
+# edge_edge_array = np.array(list(G.edges)).flatten()
+
+# start_time_cuda = time.time()
+# result = algo.fr_cuda(edge_edge_array, numNodes, 1)  # execute cuda program
+# end_time_cuda = time.time()
+# cuda_time = end_time_cuda - start_time_cuda
+# cuda_pos = group_elements(result)
 
 
-edge_edge_array = np.array(list(G.edges)).flatten()
-start_time_fr = time.time()
-normal_pos = algo.fr(edge_edge_array, numNodes, 1)  # execute cpu program
-end_time_fr = time.time()
-fr_time = end_time_fr - start_time_fr
-normal_pos = group_elements(normal_pos)
+# edge_edge_array = np.array(list(G.edges)).flatten()
+# start_time_fr = time.time()
+# normal_pos = algo.fr(edge_edge_array, numNodes, 1)  # execute cpu program
+# end_time_fr = time.time()
+# fr_time = end_time_fr - start_time_fr
+# normal_pos = group_elements(normal_pos)
 
-if ENABLE_CROSSING_EDGES:
-    print("edge crossings (fr_cuda): " + str(calculate_edge_crossings(G, cuda_pos)))
+# if ENABLE_CROSSING_EDGES:
+#     print("edge crossings (fr_cuda): " + str(calculate_edge_crossings(G, cuda_pos)))
 
-if ENABLE_CROSSING_EDGES:
-    print("edge crossings (fr): " + str(calculate_edge_crossings(G, normal_pos)))
+# if ENABLE_CROSSING_EDGES:
+#     print("edge crossings (fr): " + str(calculate_edge_crossings(G, normal_pos)))
 
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
+# fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
 
-ax1.set_title('Graph 1 (fr_cuda)\nTime: {:.4f} seconds'.format(cuda_time))
-nx.draw(G, pos=cuda_pos, ax=ax1)
+# ax1.set_title('Graph 1 (fr_cuda)\nTime: {:.6f} seconds'.format(cuda_time))
+# nx.draw(G, pos=cuda_pos, ax=ax1)
 
-ax2.set_title('Graph 2 (fr)\nTime: {:.4f} seconds'.format(fr_time))
-nx.draw(G, pos=normal_pos, ax=ax2)
+# ax2.set_title('Graph 2 (fr)\nTime: {:.6f} seconds'.format(fr_time))
+# nx.draw(G, pos=normal_pos, ax=ax2)
 
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()

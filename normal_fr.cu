@@ -31,16 +31,16 @@ void calculateRepulsiveForces(const double* positions, double* repulsiveForces, 
             repulsiveForceY += repulsiveForce * (deltaY / distance);
 
             // Print intermediate values
-            if(i==2)
-                printf("i = %d, j = %d, deltaX = %.16f, deltaY = %.16f, distance = %.16f, rf = %.16f, rx=%.16f, ry = %.16f\n", i, j, deltaX, deltaY, distance, repulsiveForce, repulsiveForceX, repulsiveForceY);
+            // if(i==2)
+            //     printf("i = %d, j = %d, deltaX = %.16f, deltaY = %.16f, distance = %.16f, rf = %.16f, rx=%.16f, ry = %.16f\n", i, j, deltaX, deltaY, distance, repulsiveForce, repulsiveForceX, repulsiveForceY);
         }
 
         repulsiveForces[i * 2] = repulsiveForceX;
         repulsiveForces[i * 2 + 1] = repulsiveForceY;
 
         // Print final repulsive forces
-        if(i==2)
-            printf("i = %d, repulsiveForceX = %.16lf, repulsiveForceY = %.16lf\n", i, repulsiveForceX, repulsiveForceY);
+        // if(i==2)
+        //     printf("i = %d, repulsiveForceX = %.16lf, repulsiveForceY = %.16lf\n", i, repulsiveForceX, repulsiveForceY);
     }
 }
 
@@ -121,22 +121,22 @@ void calculateRepulsiveForces(const double* positions, double* repulsiveForces, 
 
 
             //Accumulate sum of absolute forces
-            double sumRepulsiveForces = 0.0;
-            double sumAttractiveForces = 0.0;
-            for (int i = 0; i < numNodes * 2; ++i) {
-                sumRepulsiveForces += std::abs(repulsiveForces[i]);
-                sumAttractiveForces += std::abs(attractiveForces[i]);
-            }
-            std::cout << std::setprecision(std::numeric_limits<double>::digits10 + 1); // Set precision to maximum
-            printf("repo2x: %.16lf", repulsiveForces[4]);
-            std::cout << "Sum of Repulsive Forces: " << sumRepulsiveForces << std::endl;
-            std::cout << "Sum of Attractive Forces   : " << sumAttractiveForces << std::endl;
+            // double sumRepulsiveForces = 0.0;
+            // double sumAttractiveForces = 0.0;
+            // for (int i = 0; i < numNodes * 2; ++i) {
+            //     sumRepulsiveForces += std::abs(repulsiveForces[i]);
+            //     sumAttractiveForces += std::abs(attractiveForces[i]);
+            // }
+            // std::cout << std::setprecision(std::numeric_limits<double>::digits10 + 1); // Set precision to maximum
+            // printf("repo2x: %.16lf", repulsiveForces[4]);
+            // std::cout << "Sum of Repulsive Forces: " << sumRepulsiveForces << std::endl;
+            // std::cout << "Sum of Attractive Forces   : " << sumAttractiveForces << std::endl;
             
-            if(iter==0){
-             for (int i = 0; i < 10; i++) {
-                std::cout << repulsiveForces[i] << " ";
-             }    
-            }
+            // if(iter==0){
+            //  for (int i = 0; i < 10; i++) {
+            //     std::cout << repulsiveForces[i] << " ";
+            //  }    
+            // }
 
             // Reset attractive and repulsive forces
             std::fill(repulsiveForces, repulsiveForces + (numNodes * 2), 0.0);
